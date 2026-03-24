@@ -9,7 +9,9 @@ resource "aws_instance" "main" {
   
   monitoring = var.enable_monitoring
 
-  user_data = null
+  user_data = var.user_data
+
+  key_name = var.key_name
 
   root_block_device {
     volume_type           = var.root_volume_type
@@ -47,6 +49,7 @@ resource "aws_ebs_volume" "additional" {
   iops              = each.value.type == "gp3" ? each.value.iops : null
   throughput        = each.value.type == "gp3" ? each.value.throughput : null
   encrypted         = each.value.encrypted
+  
 
   tags = merge(
     var.tags,

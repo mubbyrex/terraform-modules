@@ -8,6 +8,12 @@ variable "aws_region" {
   type        = string
 }
 
+variable "azs" {
+  description = "List of availability zones"
+  type        = list(string)
+  default     = []
+}
+
 variable "cidr_block" {
   description = "CIDR block for the VPC"
   type        = string
@@ -58,3 +64,4 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+

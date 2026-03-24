@@ -8,6 +8,11 @@ output "instance_private_ip" {
   value       = aws_instance.main.private_ip
 }
 
+output "instance_public_ip" {
+  description = "Public IP address of the instance (if assigned)"
+  value       = aws_instance.main.public_ip
+}
+
 output "instance_availability_zone" {
   description = "Availability Zone of the instance"
   value       = aws_instance.main.availability_zone

@@ -1,5 +1,9 @@
 locals {
-  azs = ["${var.aws_region}a", "${var.aws_region}b", "${var.aws_region}c"]
+  azs = length(var.azs) > 0 ? var.azs : [
+    "${var.aws_region}a",
+    "${var.aws_region}b",
+    "${var.aws_region}c"
+  ]
 }
 
 module "vpc" {
@@ -20,8 +24,8 @@ module "vpc" {
 
   # VPC Flow Logs for network monitoring
   enable_flow_log                      = var.enable_flow_log
-  create_flow_log_cloudwatch_log_group = true
-  create_flow_log_cloudwatch_iam_role  = true
+  create_flow_log_cloudwatch_log_group = var.enable_flow_log
+  create_flow_log_cloudwatch_iam_role  = var.enable_flow_log
   flow_log_max_aggregation_interval    = 60
   flow_log_cloudwatch_log_group_retention_in_days = var.flow_log_retention_days
 

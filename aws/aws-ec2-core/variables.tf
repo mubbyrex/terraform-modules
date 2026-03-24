@@ -8,6 +8,17 @@ variable "instance_type" {
   type        = string
 }
 
+variable "user_data" {
+  type        = string
+  default     = null
+  description = "User data script"
+}
+
+variable "key_name" {
+  type    = string
+  default = null
+}
+
 variable "ami_id" {
   description = "AMI ID to use for the instance"
   type        = string
@@ -70,6 +81,11 @@ variable "ebs_volumes" {
     encrypted   = optional(bool, true)
   }))
   default = []
+
+  validation {
+    condition     = alltrue([for v in var.ebs_volumes : v.size > 0])
+    error_message = "All EBS volumes must have size > 0"
+  }
 }
 
 variable "tags" {
